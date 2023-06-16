@@ -1,0 +1,12 @@
+@import './base.css';
+
+#app {
+  max-width: min(calc(100% - 2rem), 840px);
+  margin-inline: auto;
+  
+  font-weight: normal;
+  
+  /* temp */
+  border: 1px solid red;
+}
+
