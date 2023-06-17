@@ -116,11 +116,18 @@ import { withMemo } from 'vue';
                 // check if the day and month are valid
                 let maxDay = 31
                 
+                const date = new Date()
+                const yearNow = date.getFullYear()
+                
                 if(this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 || this.month == 10 || this.month == 12) {
                     maxDay = 30
                 } 
                 if(this.month == 2) {
                     maxDay = 28
+                    
+                    if((0 == this.year % 4) && (0 != this.year % 100) || (0 == this.year % 400)) {
+                        maxDay = 29
+                    }
                 }
 
                 if(this.month > 12) {
@@ -133,21 +140,6 @@ import { withMemo } from 'vue';
                     this.withinMonth = true
                     this.validMonth = true
                 }
-                
-                if(this.day > maxDay) {
-                    this.withinDay = false
-                    this.validDay = true
-                } else if(!this.day) {
-                    this.withinDay = true
-                    this.validDay = false
-                } else {
-                    this.withinDay = true
-                    this.validDay = true
-                }
-
-
-                const date = new Date()
-                const yearNow = date.getFullYear()
 
                 if(this.year > yearNow) {
                     this.withinYear = false
@@ -158,6 +150,17 @@ import { withMemo } from 'vue';
                 } else {
                     this.validYear = true
                     this.withinYear = true
+                }
+
+                if(this.day > maxDay) {
+                    this.withinDay = false
+                    this.validDay = true
+                } else if(!this.day) {
+                    this.withinDay = true
+                    this.validDay = false
+                } else {
+                    this.withinDay = true
+                    this.validDay = true
                 }
 
                 if(this.validDay && this.validMonth && this.validYear && this.withinDay && this.withinMonth && this.withinYear) {
